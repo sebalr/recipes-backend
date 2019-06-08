@@ -16,26 +16,26 @@ namespace to_cook.Services
 
     public class RecipeProvider : IRecipeProvider
     {
-        private IRecipeProviderDB _recipeProvider;
+        private IRecipeProviderDB _recipeProviderDB;
 
         public RecipeProvider(IRecipeProviderDB recipeProvider)
         {
-            _recipeProvider = recipeProvider;
+            _recipeProviderDB = recipeProvider;
         }
 
         public IEnumerable<Recipe> GetAll()
         {
-            return this._recipeProvider.Recipes();
+            return this._recipeProviderDB.Recipes();
         }
 
         public Recipe GetById(int id)
         {
-            return this._recipeProvider.Recipes().Where(x => x.Id == id).FirstOrDefault();
+            return this._recipeProviderDB.Recipes().Where(x => x.Id == id).FirstOrDefault();
         }
 
         public Recipe Add(Recipe recipe)
         {
-            this._recipeProvider.Recipes().Add(recipe);
+            this._recipeProviderDB.Recipes().Add(recipe);
             return recipe;
         }
 
@@ -59,7 +59,7 @@ namespace to_cook.Services
             var recipe = this.GetById(id);
             if (recipe != null)
             {
-                this._recipeProvider.Recipes().Remove(recipe);
+                this._recipeProviderDB.Recipes().Remove(recipe);
             }
         }
     }
