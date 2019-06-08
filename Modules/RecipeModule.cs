@@ -12,7 +12,7 @@ namespace to_cook.Modules
 {
     public class RecipeModule : CarterModule
     {
-        public RecipeModule(IRecipeService recipeService) : base("recipe")
+        public RecipeModule(IRecipeProvider recipeService) : base("recipe")
         {
             Get("/", ctx =>
             {

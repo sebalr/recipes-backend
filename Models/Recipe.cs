@@ -2,8 +2,8 @@ namespace to_cook.Models
 {
     public class Recipe
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
+        public virtual int Id { get; set; }
+        public virtual string Title { get; set; }
+        public virtual string Description { get; set; }
     }
 }

@@ -30,8 +30,8 @@ namespace to_cook
                     });
             });
 
-            services.AddSingleton<IRecipeProvider, RecipeProvider>();
-            services.AddScoped<IRecipeService, RecipeService>();
+            services.AddSingleton<IRecipeProviderDB, RecipeProviderDB>();
+            services.AddScoped<IRecipeProvider, RecipeProvider>();
             services.AddCarter();
         }
 
