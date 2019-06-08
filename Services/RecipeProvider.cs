@@ -18,9 +18,9 @@ namespace to_cook.Services
     {
         private IRecipeProviderDB _recipeProviderDB;
 
-        public RecipeProvider(IRecipeProviderDB recipeProvider)
+        public RecipeProvider(IRecipeProviderDB recipeProviderDB)
         {
-            _recipeProviderDB = recipeProvider;
+            _recipeProviderDB = recipeProviderDB;
         }
 
         public IEnumerable<Recipe> GetAll()
