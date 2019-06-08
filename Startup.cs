@@ -13,10 +13,23 @@ namespace to_cook
 {
     public class Startup
     {
+        readonly string AllowSpecificOrigins = "_allowSpecificOrigins";
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(AllowSpecificOrigins,
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:4200", "https://localhost:4200")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
+
             services.AddSingleton<IRecipeProvider, RecipeProvider>();
             services.AddScoped<IRecipeService, RecipeService>();
             services.AddCarter();
@@ -30,6 +43,7 @@ namespace to_cook
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(AllowSpecificOrigins);
             app.UseCarter();
         }
     }
