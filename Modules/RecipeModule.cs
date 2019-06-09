@@ -12,11 +12,11 @@ namespace to_cook.Modules
 {
     public class RecipeModule : CarterModule
     {
-        public RecipeModule(IRecipeProvider recipeService) : base("recipe")
+        public RecipeModule(IRecipeProvider recipeProvider) : base("recipe")
         {
             Get("/", ctx =>
             {
-                var recipes = recipeService.GetAll();
+                var recipes = recipeProvider.GetAll();
                 return ctx.Response.AsJson(recipes);
             });
 
@@ -24,7 +24,7 @@ namespace to_cook.Modules
             {
                 var id = ctx.GetRouteData().As<int>("id");
 
-                var recipe = recipeService.GetById(id);
+                var recipe = recipeProvider.GetById(id);
 
                 if (recipe != null)
                 {
@@ -41,7 +41,7 @@ namespace to_cook.Modules
             {
                 var recipe = ctx.Request.Bind<Recipe>();
 
-                var addedRecipe = recipeService.Add(recipe);
+                var addedRecipe = recipeProvider.Add(recipe);
 
                 return ctx.Response.AsJson(addedRecipe);
             });
@@ -57,7 +57,7 @@ namespace to_cook.Modules
                     return ctx.Response.WriteAsync("Cant update Id property");
                 }
 
-                var editedRecipe = recipeService.Update(id, newRecipe);
+                var editedRecipe = recipeProvider.Update(id, newRecipe);
                 return ctx.Response.AsJson(editedRecipe);
 
             });
@@ -65,7 +65,7 @@ namespace to_cook.Modules
             Delete("/{id:int}", ctx =>
             {
                 var id = ctx.GetRouteData().As<int>("id");
-                recipeService.Delete(id);
+                recipeProvider.Delete(id);
                 ctx.Response.StatusCode = 204;
                 return Task.CompletedTask;
             });
